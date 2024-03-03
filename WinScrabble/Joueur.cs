@@ -62,8 +62,9 @@ namespace WinScrabble
             //TODO
             return this.lesMots.Count;
         }
+
         /// <summary>
-        /// Reztourne le nom du Joueur
+        /// Retourne le nom du Joueur
         /// </summary>
         /// <returns>Nom du joueur</returns>
         public string GetNom()

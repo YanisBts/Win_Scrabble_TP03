@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WinScrabble
 {
@@ -19,6 +21,7 @@ namespace WinScrabble
         private static int PointsLettre(char l)
         {
             int p;
+            
             if (l == 'D' || l == 'G' || l == 'M')
                 p = 2;
             else
@@ -56,11 +59,35 @@ namespace WinScrabble
             int pts = 0;
             for (int i = 0; i <= mot.Length - 1; i++)
             {
+                
                 char lettre = mot[i];
                 pts = pts + PointsLettre(lettre);
             }
             return pts;
         }
+
+        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="txtBox1"></param>
+        /// <param name="r"></param>
+        public static void lettreRandom(TextBox txtBox1, Random r)
+        {
+            txtBox1.Clear();
+            string lettres = "azertyuiopqsdfghjklmwxcvbn";
+            for (int i = 0; i < 7; i++)
+            {
+                int al = r.Next(0, lettres.Length);
+                char c = lettres[al];
+                txtBox1.Text += c;
+            }
+        }
+        
+
+
+
 
     }
 }

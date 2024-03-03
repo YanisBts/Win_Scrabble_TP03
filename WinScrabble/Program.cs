@@ -18,5 +18,6 @@ namespace WinScrabble
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FrmScrabble());
         }
+
     }
 }

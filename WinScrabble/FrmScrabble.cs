@@ -15,29 +15,20 @@ namespace WinScrabble
     {
         Joueur j1;
         Joueur j2;
+        Random r = new Random();
         public FrmScrabble()
         {
+            
             InitializeComponent();
-        }
-
-        private void FrmScrabble_Load(object sender, EventArgs e)
-        {
+            
+            Utilitaire.lettreRandom(textBox1, r);
+            Utilitaire.lettreRandom(textBox2, r);
+            textBox1.Enabled = false;
+            textBox2.Enabled = false;
             
             
-            
 
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             j1 = new Joueur(txtJ1.Text);
@@ -50,14 +41,117 @@ namespace WinScrabble
             if (nbR == 1)
             {
                 label3.Text += j1.GetNom();
+                txtMotJ2.Enabled = false;
+                btnValJ2.Enabled = false;
+
             }
             else
+            {
                 label3.Text += j2.GetNom();
+                txtMotJ1.Enabled = false;
+                btnValJ1.Enabled = false;
+            }
 
             label4.Text += j1.GetNom();
             label5.Text += j2.GetNom();
 
 
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+            int pts = 0;
+            
+            if (j1.GetNbMots() == 10 && j2.GetNbMots() == 10)
+            {
+                btnValJ1.Enabled = false;
+                btnValJ2.Enabled = false;
+                btnRes.Enabled = true;
+                
+            }
+            else
+            {
+                foreach (char lettre in textBox1.Text)
+                {
+                    if (txtMotJ1.Text.Contains(lettre))
+                    {
+                        pts++;
+
+                    }
+                }
+
+                if (pts == 7)
+                {
+                    txtMotJ2.Enabled = true;
+                    btnValJ2.Enabled = true;
+                    txtMotJ1.Enabled = false;
+                    btnValJ1.Enabled = false;
+                    j1.AjouterMot(textBox1.Text);
+                    Utilitaire.lettreRandom(textBox1, r);
+
+                }
+
+                scoreJ1.Text = "Score : " + j1.GetTotalPoints().ToString();
+            }
+
+
+        }
+
+        private void btnValJ2_Click(object sender, EventArgs e)
+        {
+            int pts = 0;
+
+            if (j1.GetNbMots() == 10 && j2.GetNbMots() == 10)
+            {
+                btnValJ1.Enabled = false;
+                btnValJ2.Enabled = false;
+                btnRes.Enabled = true;
+                
+            }
+            else
+            {
+                foreach (char lettre in textBox2.Text)
+                {
+                    if (txtMotJ2.Text.Contains(lettre))
+                    {
+                        pts++;
+
+                    }
+                }
+
+                if (pts == 7)
+                {
+                    txtMotJ1.Enabled = true;
+                    btnValJ1.Enabled = true;
+                    txtMotJ2.Enabled = false;
+                    btnValJ2.Enabled = false;
+                    j2.AjouterMot(textBox2.Text);
+                    Utilitaire.lettreRandom(textBox2, r);
+                }
+                scoreJ2.Text = "Score : " + j2.GetTotalPoints().ToString();
+            }
+        }
+
+        private void btnRes_Click(object sender, EventArgs e)
+        {
+            btnRes.Enabled = false;
+            if (j1.GetTotalPoints() > j2.GetTotalPoints())
+            {
+                label11.Text += j1.GetNom();
+                label12.Text += j1.MotMeilleur();
+                foreach (string mot in j1.GetLesMots())
+                {
+                    richTextBox1.Text += mot + "\t";
+                }
+            }
+            else
+            {
+                label12.Text += j2.GetNom();
+                foreach (string mot in j2.GetLesMots())
+                {
+                    richTextBox1.Text += mot + "\t";
+                }
+            }
         }
     }
 }
