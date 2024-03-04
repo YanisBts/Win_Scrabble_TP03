@@ -73,16 +73,18 @@ namespace WinScrabble
         /// </summary>
         /// <param name="txtBox1"></param>
         /// <param name="r"></param>
-        public static void lettreRandom(TextBox txtBox1, Random r)
+        public static string lettreRandom()
         {
-            txtBox1.Clear();
+            Random r = new Random();
+            string tirage = "";
             string lettres = "azertyuiopqsdfghjklmwxcvbn";
             for (int i = 0; i < 7; i++)
             {
                 int al = r.Next(0, lettres.Length);
                 char c = lettres[al];
-                txtBox1.Text += c;
+                tirage += c.ToString();
             }
+            return tirage;
         }
         
 

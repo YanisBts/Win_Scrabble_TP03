@@ -15,14 +15,14 @@ namespace WinScrabble
     {
         Joueur j1;
         Joueur j2;
-        Random r = new Random();
+        
         public FrmScrabble()
         {
             
             InitializeComponent();
             
-            Utilitaire.lettreRandom(textBox1, r);
-            Utilitaire.lettreRandom(textBox2, r);
+            textBox1.Text = Utilitaire.lettreRandom();
+            textBox2.Text = Utilitaire.lettreRandom();
             textBox1.Enabled = false;
             textBox2.Enabled = false;
             
@@ -60,7 +60,7 @@ namespace WinScrabble
         private void button2_Click(object sender, EventArgs e)
         {
             
-            int pts = 0;
+            
             
             if (j1.GetNbMots() == 10 && j2.GetNbMots() == 10)
             {
@@ -71,25 +71,14 @@ namespace WinScrabble
             }
             else
             {
-                foreach (char lettre in textBox1.Text)
-                {
-                    if (txtMotJ1.Text.Contains(lettre))
-                    {
-                        pts++;
-
-                    }
-                }
-
-                if (pts == 7)
-                {
-                    txtMotJ2.Enabled = true;
-                    btnValJ2.Enabled = true;
-                    txtMotJ1.Enabled = false;
-                    btnValJ1.Enabled = false;
-                    j1.AjouterMot(textBox1.Text);
-                    Utilitaire.lettreRandom(textBox1, r);
-
-                }
+                txtMotJ2.Enabled = true;
+                btnValJ2.Enabled = true;
+                txtMotJ1.Enabled = false;
+                btnValJ1.Enabled = false;
+                j1.AjouterMot(textBox1.Text);
+                txtMotJ1.Clear();
+                textBox1.Clear();
+                textBox1.Text = Utilitaire.lettreRandom();
 
                 scoreJ1.Text = "Score : " + j1.GetTotalPoints().ToString();
             }
@@ -99,7 +88,7 @@ namespace WinScrabble
 
         private void btnValJ2_Click(object sender, EventArgs e)
         {
-            int pts = 0;
+            
 
             if (j1.GetNbMots() == 10 && j2.GetNbMots() == 10)
             {
@@ -110,24 +99,13 @@ namespace WinScrabble
             }
             else
             {
-                foreach (char lettre in textBox2.Text)
-                {
-                    if (txtMotJ2.Text.Contains(lettre))
-                    {
-                        pts++;
-
-                    }
-                }
-
-                if (pts == 7)
-                {
-                    txtMotJ1.Enabled = true;
-                    btnValJ1.Enabled = true;
-                    txtMotJ2.Enabled = false;
-                    btnValJ2.Enabled = false;
-                    j2.AjouterMot(textBox2.Text);
-                    Utilitaire.lettreRandom(textBox2, r);
-                }
+                txtMotJ1.Enabled = true;
+                btnValJ1.Enabled = true;
+                txtMotJ2.Enabled = false;
+                btnValJ2.Enabled = false;
+                j2.AjouterMot(textBox2.Text);
+                txtMotJ2.Clear();
+                textBox2.Text = Utilitaire.lettreRandom();
                 scoreJ2.Text = "Score : " + j2.GetTotalPoints().ToString();
             }
         }
@@ -152,6 +130,7 @@ namespace WinScrabble
                     richTextBox1.Text += mot + "\t";
                 }
             }
+            
         }
     }
 }
